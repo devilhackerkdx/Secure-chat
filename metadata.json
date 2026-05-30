@@ -1,0 +1,6 @@
+{
+  "name": "SecureChat",
+  "description": "An ultra-premium modern iOS 26 inspired messaging app with glassmorphism UI, real-time Gemini AI assistant, and frosted light pink aesthetics.",
+  "requestFramePermissions": ["camera", "microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

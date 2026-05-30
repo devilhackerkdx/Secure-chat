@@ -1,0 +1,184 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile with personal identity and visual style theme settings stored under the phone ID.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The user's display name"
+        },
+        "avatar": {
+          "type": "string",
+          "description": "Unsplash URL or image asset path for user picture"
+        },
+        "bio": {
+          "type": "string",
+          "description": "The personal status quote or biography"
+        },
+        "isOnline": {
+          "type": "boolean",
+          "description": "Online presence flag"
+        },
+        "activeTheme": {
+          "type": "string",
+          "description": "Pastel palette theme accent: pink, emerald, sky, violet, amber, monochrome"
+        },
+        "activeFont": {
+          "type": "string",
+          "description": "Selected typography font styling"
+        },
+        "chatWallpaper": {
+          "type": "string",
+          "description": "Background wallpaper pattern for active conversation rooms"
+        },
+        "appIcon": {
+          "type": "string",
+          "description": "Selected icon branding flavor"
+        },
+        "darkMode": {
+          "type": "boolean",
+          "description": "Dark mode toggler"
+        },
+        "activeWallpaper": {
+          "type": "string",
+          "description": "Main screen wallpaper container color scheme"
+        },
+        "glassOpacity": {
+          "type": "number",
+          "description": "Glassmorphism translucency fraction"
+        },
+        "blurAmount": {
+          "type": "number",
+          "description": "Backdrop blur pixel intensity factor"
+        }
+      },
+      "required": ["name", "avatar", "bio", "isOnline"]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "A single chat bubble exchanged inside a secure conversation thread.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "sender": {
+          "type": "string",
+          "enum": ["user", "contact"]
+        },
+        "text": {
+          "type": "string",
+          "description": "Content of the message"
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "Plain formatted readable timing string"
+        },
+        "isVoice": {
+          "type": "boolean"
+        },
+        "voiceUrl": {
+          "type": "string"
+        },
+        "voiceDuration": {
+          "type": "string"
+        },
+        "replyTo": {
+          "type": "string"
+        },
+        "attachmentType": {
+          "type": "string",
+          "enum": ["photo", "doc", "location"]
+        },
+        "serverTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["id", "sender", "text", "timestamp"]
+    },
+    "CallLog": {
+      "title": "CallLog",
+      "description": "A record of previous dial activity logging a status call.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "contactId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["voice", "video"]
+        },
+        "direction": {
+          "type": "string",
+          "enum": ["incoming", "outgoing"]
+        },
+        "timestamp": {
+          "type": "string"
+        },
+        "serverTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["id", "contactId", "name", "avatar", "type", "direction", "timestamp"]
+    },
+    "Story": {
+      "title": "Story",
+      "description": "An interactive post card holding text or picture dynamic updates.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "mediaType": {
+          "type": "string",
+          "enum": ["text", "image"]
+        },
+        "content": {
+          "type": "string"
+        },
+        "bgColor": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string"
+        },
+        "serverTimestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["id", "mediaType", "content", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User global configuration document."
+    },
+    "/users/{userId}/chats/{contactId}/messages/{messageId}": {
+      "schema": "Message",
+      "description": "Nested private subcollection mapping interactive conversation chats."
+    },
+    "/users/{userId}/statuses/{statusId}": {
+      "schema": "Story",
+      "description": "User published live status cards."
+    },
+    "/users/{userId}/callLogs/{logId}": {
+      "schema": "CallLog",
+      "description": "User list of dial logs."
+    }
+  }
+}
