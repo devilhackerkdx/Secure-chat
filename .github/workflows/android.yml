@@ -25,6 +25,7 @@ jobs:
       - name: Install Capacitor
         run: |
           npm install @capacitor/core @capacitor/cli @capacitor/android --save
+          npx cap init SecureChat com.secure.chat --web-dir=dist
           npx cap add android
           npx cap sync android
 
